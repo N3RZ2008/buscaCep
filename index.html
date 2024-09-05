@@ -1,46 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>buscaCEP</title>
-
-    <script src="js/index.js"></script>
+    <title>BuscaCEP</title>
     <link rel="stylesheet" href="style.css">
+    <script src="js/index.js" defer></script>
 </head>
-<body">
+<body>
     <div class="header">
         <div class="nav" onclick="location.href='#';">
             <a href="#">Buscar Endereço pelo CEP</a>
         </div>
-        <div class="nav"  onclick="location.href='busca_cep.html';">
+        <div class="nav" onclick="location.href='busca_cep.html';">
             <a href="busca_cep.html">Buscar CEP pelo Endereço</a>
         </div>
     </div>
+    
     <div class="main">
         <h2 id="message">BuscaCEP</h2>
-        <div class="result">
-            <div id="rua" class="result-item">
-                Rua: 
-            </div>
-            <div id="bairro" class="result-item">
-                Bairro: 
-            </div>
-            <div id="cidade" class="result-item">
-                Cidade: 
-            </div>
-            <div id="estado" class="result-item">
-                Estado: 
-            </div>
+        <div class="info">
+            <div id="rua">Rua: </div>
+            <div id="bairro">Bairro: </div>
+            <div id="cidade">Cidade: </div>
+            <div id="estado">Estado: </div>
         </div>
+        
         <div class="search">
-            <input type="text" id="input">
+            <input type="text" id="input" placeholder="Digite o CEP">
             <button onclick="buscaEndereco(document.querySelector('#input').value)">Buscar Endereço pelo CEP</button>
         </div>
     </div>
+    
     <div class="history">
         <h2>Histórico de Pesquisas</h2>
-        <div id = "history" class="hResults"></div>
+        <div id="history" class="hResults"></div>
+        <button onclick="reset()">Limpar Histórico</button>
     </div>
 </body>
 </html>
