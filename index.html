@@ -19,28 +19,20 @@
     </div>
     <div class="main">
         <h2 id="message">BuscaCEP</h2>
-        <table>
-            <tr>
-                <td id="rua">
-                    Rua: 
-                </td>
-            </tr>
-            <tr>
-                <td id="bairro">
-                    Bairro: 
-                </td>
-            </tr>
-            <tr>
-                <td id="cidade">
-                    Cidade: 
-                </td>
-            </tr>
-            <tr>
-                <td id="estado">
-                    Estado: 
-                </td>
-            </tr>
-        </table>
+        <div class="result">
+            <div id="rua" class="result-item">
+                Rua: 
+            </div>
+            <div id="bairro" class="result-item">
+                Bairro: 
+            </div>
+            <div id="cidade" class="result-item">
+                Cidade: 
+            </div>
+            <div id="estado" class="result-item">
+                Estado: 
+            </div>
+        </div>
         <div class="search">
             <input type="text" id="input">
             <button onclick="buscaEndereco(document.querySelector('#input').value)">Buscar Endereço pelo CEP</button>
