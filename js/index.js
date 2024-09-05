@@ -50,7 +50,7 @@ function historyShow() {
             div.removeChild(div.firstChild);
         }
     }
-    for (let i = localStorage.length-1; i > 0; i--) {
+    for (let i = localStorage.length-1; i >= 0; i--) {
         console.log(localStorage.getItem(`history${localStorage.length-i}`))
 
         p = document.createElement("p")
