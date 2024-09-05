@@ -1,4 +1,4 @@
-async function buscaEndereco(cep) {
+async function buscaEndereco(cep, goToHistory) {
     const rua = document.querySelector('#rua');
     const bairro = document.querySelector('#bairro');
     const cidade = document.querySelector('#cidade');
@@ -20,8 +20,10 @@ async function buscaEndereco(cep) {
         cidade.textContent = `Cidade: ${data.localidade}`;
         estado.textContent = `Estado: ${data.uf}`;
 
-        addHistory(cep);
-        renderHistory();
+        if (goToHistory) {
+            addHistory(cep);
+            renderHistory();
+        }
     } catch (error) {
         const message = document.querySelector('#message');
         message.textContent = error.message;
@@ -29,22 +31,31 @@ async function buscaEndereco(cep) {
     }
 }
 
-function addHistory(cep) {
-    if (!localStorage.getItem(cep)) {
-        localStorage.setItem(cep, cep);
-    }
+function addHistory(info) {
+    localStorage.setItem(`history${localStorage.length}`, info)
 }
 
-function renderHistory() {
-    const historyDiv = document.querySelector(".hResults");
-    historyDiv.innerHTML = ""; // Limpa o histórico antes de adicionar
+function useHistory(info) {
+    document.querySelector('#input').value = info
+    buscaEndereco(info, false)
+}
 
-    Object.keys(localStorage).forEach((key, index) => {
-        const historyItem = document.createElement("p");
-        historyItem.textContent = `${index + 1}. ${key}`;
-        historyItem.onclick = () => { document.querySelector('#input').value = key; };
-        historyDiv.appendChild(historyItem);
-    });
+function renderHistory  () {
+    if (document.querySelector(".hResults").hasChildNodes()) {
+        const div = document.querySelector(".hResults")
+
+        while (div.hasChildNodes()) {
+            div.removeChild(div.firstChild);
+        }
+    }
+    for (let i = localStorage.length-1; i >= 0; i--) {
+        btn = document.createElement("button")
+        btn.textContent = `${localStorage.length-i}. ${localStorage.getItem(`history${i}`)}`
+        btn.addEventListener("click", () => {
+            useHistory(localStorage.getItem(`history${i}`))
+        })
+        document.querySelector('.hResults').appendChild(btn)
+    }
 }
 
 function reset() {
