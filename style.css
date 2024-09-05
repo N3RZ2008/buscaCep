@@ -5,7 +5,7 @@
     color: #dbdbdb;
 }
 
-body, button {
+body, button, input {
     background-color: #2A333C;
 }
 
@@ -52,4 +52,16 @@ body, button {
 
 .search button {
     width: 30%;
+}
+
+.history {
+    width: 100%;
+    height: 50vh;
+}
+
+.hResults {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vh;
+    gap: 0.5vh;
 }

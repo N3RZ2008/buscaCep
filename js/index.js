@@ -23,6 +23,8 @@ async function buscaEndereco(cep) {
         bairro.innerHTML = `Bairro: ${responseCep.bairro}`;
         cidade.innerHTML = `Cidade: ${responseCep.localidade}`;
         estado.innerHTML = `Estado: ${responseCep.uf}`;
+
+        addHistory(cep)
     } catch (error) {
         if (error?.cep_error) {
             const message = document.querySelector('#message');
@@ -36,17 +38,16 @@ async function buscaEndereco(cep) {
 }
 
 function addHistory(info) {
-    if (!localStorage.historyCount) {
-        localStorage.setItem("historyCount", 0);
-    }
-    localStorage.setItem("historyCount", Number(localStorage.historyCount) + 1);
-
-    localStorage.setItem(`history${localStorage.historyCount}`, info)
+    localStorage.setItem(`history${localStorage.length}`, info)
 }
 
 function historyShow() {
-    for (let i = 1; i <= localStorage.historyCount; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
         console.log(localStorage.getItem(`history${i}`))
+
+        p = document.createElement("p")
+        p.innerHTML = `CEP: ${localStorage.getItem(`history${i}`)}`
+        document.querySelector('.hResults').appendChild(p)
     }
 }
 
