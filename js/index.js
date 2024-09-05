@@ -5,66 +5,52 @@ async function buscaEndereco(cep) {
     const estado = document.querySelector('#estado');
 
     try {
-        const validator = /^[0-9]{8}$/;
-        if (!validator.test(cep)) {
-            throw { cep_error: "CEP Inválido" };
+        if (!/^[0-9]{8}$/.test(cep)) {
+            throw new Error("CEP Inválido");
         }
 
         const response = await fetch(`https://viacep.com.br/ws/${cep}/json`);
-        if (!response.ok) {
-            throw await response.json();
-        }
-        const responseCep = await response.json();
-        if (responseCep.erro) {
-            throw { cep_error: "CEP não existente" };
-        }
+        if (!response.ok) throw new Error("Erro na busca");
 
-        rua.innerHTML = `Rua: ${responseCep.logradouro}`;
-        bairro.innerHTML = `Bairro: ${responseCep.bairro}`;
-        cidade.innerHTML = `Cidade: ${responseCep.localidade}`;
-        estado.innerHTML = `Estado: ${responseCep.uf}`;
+        const data = await response.json();
+        if (data.erro) throw new Error("CEP não existente");
 
-        addHistory(cep)
-        historyShow()
+        rua.textContent = `Rua: ${data.logradouro}`;
+        bairro.textContent = `Bairro: ${data.bairro}`;
+        cidade.textContent = `Cidade: ${data.localidade}`;
+        estado.textContent = `Estado: ${data.uf}`;
+
+        addHistory(cep);
+        renderHistory();
     } catch (error) {
-        if (error?.cep_error) {
-            const message = document.querySelector('#message');
-            message.innerHTML = error.cep_error;
-            setTimeout(() => {
-                message.innerHTML = "BuscaCEP";
-            }, 5000);
-            // alert(error.cep_error);
-        }
-    } 
+        const message = document.querySelector('#message');
+        message.textContent = error.message;
+        setTimeout(() => { message.textContent = "BuscaCEP"; }, 5000);
+    }
 }
 
-function addHistory(info) {
-    localStorage.setItem(`history${localStorage.length}`, info)
+function addHistory(cep) {
+    if (!localStorage.getItem(cep)) {
+        localStorage.setItem(cep, cep);
+    }
 }
 
-function historyShow() {
-    if (document.querySelector(".hResults").hasChildNodes()) {
-        const div = document.querySelector(".hResults")
+function renderHistory() {
+    const historyDiv = document.querySelector(".hResults");
+    historyDiv.innerHTML = ""; // Limpa o histórico antes de adicionar
 
-        while (div.hasChildNodes()) {
-            div.removeChild(div.firstChild);
-        }
-    }
-    for (let i = localStorage.length-1; i >= 0; i--) {
-        console.log(localStorage.getItem(`history${localStorage.length-i}`))
-
-        p = document.createElement("p")
-        p.innerHTML = `${localStorage.length-i}. ${localStorage.getItem(`history${i}`)}`
-        document.querySelector('.hResults').appendChild(p)
-    }
+    Object.keys(localStorage).forEach((key, index) => {
+        const historyItem = document.createElement("p");
+        historyItem.textContent = `${index + 1}. ${key}`;
+        historyItem.onclick = () => { document.querySelector('#input').value = key; };
+        historyDiv.appendChild(historyItem);
+    });
 }
 
 function reset() {
-    // const div = document.querySelector(".results")
-
-    // while (div.hasChildNodes()) {
-    //     div.removeChild(div.firstChild);
-    // }
-
-    localStorage.clear()
+    localStorage.clear();
+    renderHistory();
 }
+
+window.onload = renderHistory;
+            
