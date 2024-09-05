@@ -25,6 +25,7 @@ async function buscaEndereco(cep) {
         estado.innerHTML = `Estado: ${responseCep.uf}`;
 
         addHistory(cep)
+        historyShow()
     } catch (error) {
         if (error?.cep_error) {
             const message = document.querySelector('#message');
@@ -42,11 +43,18 @@ function addHistory(info) {
 }
 
 function historyShow() {
-    for (let i = 0; i < localStorage.length; i++) {
-        console.log(localStorage.getItem(`history${i}`))
+    if (document.querySelector(".hResults").hasChildNodes()) {
+        const div = document.querySelector(".hResults")
+
+        while (div.hasChildNodes()) {
+            div.removeChild(div.firstChild);
+        }
+    }
+    for (let i = localStorage.length-1; i > 0; i--) {
+        console.log(localStorage.getItem(`history${localStorage.length-i}`))
 
         p = document.createElement("p")
-        p.innerHTML = `CEP: ${localStorage.getItem(`history${i}`)}`
+        p.innerHTML = `${localStorage.length-i}. ${localStorage.getItem(`history${i}`)}`
         document.querySelector('.hResults').appendChild(p)
     }
 }

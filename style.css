@@ -79,4 +79,15 @@ body, button {
 
 .search button {
     width: 30%;
+    padding: 0.5em;
+    background-color: #506274;
+    border: none;
+    border-radius: 8px; 
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search button:hover {
+    background-color: #3B4652;
 }
