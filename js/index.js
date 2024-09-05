@@ -35,8 +35,27 @@ async function buscaEndereco(cep) {
     } 
 }
 
-function history() {
+function addHistory(info) {
     if (!localStorage.historyCount) {
-        localStorage.setItem("historyCount", 1)
+        localStorage.setItem("historyCount", 0);
     }
+    localStorage.setItem("historyCount", Number(localStorage.historyCount) + 1);
+
+    localStorage.setItem(`history${localStorage.historyCount}`, info)
+}
+
+function historyShow() {
+    for (let i = 1; i <= localStorage.historyCount; i++) {
+        console.log(localStorage.getItem(`history${i}`))
+    }
+}
+
+function reset() {
+    // const div = document.querySelector(".results")
+
+    // while (div.hasChildNodes()) {
+    //     div.removeChild(div.firstChild);
+    // }
+
+    localStorage.clear()
 }

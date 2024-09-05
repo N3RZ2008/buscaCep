@@ -2,12 +2,29 @@
     margin: auto;
     text-align: center;
     text-decoration: none;
-    color: black;
+    color: #dbdbdb;
+}
+
+body, button {
+    background-color: #2A333C;
 }
 
 .header {
     display: flex;
     height: 10vh;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 10vh;
+    transition: 0.3s;
+}
+
+.nav:hover {
+    background-color: #506274;
 }
 
 .main {
@@ -19,7 +36,7 @@
 
 .main table, td {
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid #dbdbdb;
     text-align: left;
 }
 
