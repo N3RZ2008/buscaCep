@@ -1,0 +1,38 @@
+* {
+    margin: auto;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.header {
+    display: flex;
+    height: 10vh;
+}
+
+.main {
+    width: 50%;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main table, td {
+    width: 100%;
+    border: 1px solid black;
+    text-align: left;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.search input {
+    width: 50%;
+}
+
+.search button {
+    width: 30%;
+}

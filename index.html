@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buscaCEP</title>
+
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body">
+    <div class="header">
+        <div class="navLeft">
+            <a href="#">Buscar Endereço pelo CEP</a>
+        </div>
+        <div class="navRight">
+            <a href="busca_cep.html">Buscar CEP pelo Endereço</a>
+        </div>
+    </div>
+    <div class="main">
+        <h2 id="message">BuscaCEP</h2>
+        <table>
+            <tr>
+                <td id="rua">
+                    Rua: 
+                </td>
+            </tr>
+            <tr>
+                <td id="bairro">
+                    Bairro: 
+                </td>
+            </tr>
+            <tr>
+                <td id="cidade">
+                    Cidade: 
+                </td>
+            </tr>
+            <tr>
+                <td id="estado">
+                    Estado: 
+                </td>
+            </tr>
+        </table>
+        <div class="search">
+            <input type="text" id="input">
+            <button onclick="buscaEndereco(document.querySelector('#input').value)">Buscar Endereço pelo CEP</button>
+        </div>
+    </div>
+</body>
+</html>
