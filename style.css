@@ -49,14 +49,13 @@ body, button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1vh;
 }
 
 .infos div{
     width: 20vw;
+    padding: 10px 10px;
     border: 1px solid #dbdbdb;
-    padding: 10px;
-    margin: 10px 0;
-    text-align: left;
     background-color: #3B4652;
     color: #dbdbdb;
     border-radius: 5px;
