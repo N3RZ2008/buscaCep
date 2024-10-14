@@ -20,6 +20,10 @@ async function buscaEndereco(cep, goToHistory) {
         cidade.textContent = `Cidade: ${data.localidade}`;
         estado.textContent = `Estado: ${data.uf}`;
 
+        buscaClima(`${data.localidade}`);
+
+        // console.log(buscaClima(`${data.localidade}`));
+
         if (goToHistory) {
             addHistory(cep);
             renderHistory();
@@ -61,6 +65,51 @@ function renderHistory  () {
 function reset() {
     localStorage.clear();
     renderHistory();
+}
+
+function showDiv(cls) {
+    if (document.querySelector(cls).style.zIndex == 1) {
+        document.querySelector(cls).style.zIndex = -1;
+        document.querySelector(cls).style.left = "0";
+        document.querySelector(cls).style.right = "0";
+        return
+    }
+    document.querySelector(cls).style.left = "70vw";
+    document.querySelector(cls).style.zIndex = 1;
+}
+
+async function buscaClima(cidade) {
+    try {
+        const id = "3be15358a47ddfa8abaccade84230edf";
+        const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cidade},%20BR&appid=${id}`);
+        if (!response.ok) throw new Error("Erro na busca");
+
+        const data = await response.json();
+        if (data.erro) throw new Error("Conversão errada");
+
+        values = [data[0].lat, data[0].lon];
+    } catch (error) {
+        console.log(error.message);
+    }
+    try {
+        const id = "3be15358a47ddfa8abaccade84230edf";
+        const lat = values[0];
+        const lon = values[1];
+        const temp = document.querySelector('#temp');
+        const img = document.querySelector('#img');
+
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${id}&units=metric`);
+        if (!response.ok) throw new Error("Erro na busca");
+
+        const data = await response.json();
+        if (data.erro) throw new Error("Pesquisa falha");
+
+        temp.textContent = `Temperatura: ${data.main.temp}`;
+        // console.log(data.weather[0].icon);
+        img.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 window.onload = renderHistory;

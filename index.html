@@ -29,6 +29,12 @@
         <div class="search">
             <input type="text" id="input" placeholder="Digite o CEP">
             <button onclick="buscaEndereco(document.querySelector('#input').value, true)">Buscar Endereço pelo CEP</button>
+            <button onclick="showDiv('.clima')">Mostrar Clima</button>
+        </div>
+
+        <div class="clima">
+            <img id="img" alt="Clima">
+            <p class="temp" id="temp">Pesquise um CEP para mostrar</p>
         </div>
     </div>
     

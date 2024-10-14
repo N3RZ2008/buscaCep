@@ -37,12 +37,14 @@ body, button {
 
 .main {
     width: 50%;
+    background-color: #2A333C;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2vh;
     margin: 2em auto;
+    z-index: 0;
 }
 
 .infos {
@@ -119,4 +121,21 @@ button:hover {
 
 .hResults button {
     width: 100%;
+}
+
+.clima {
+    position: absolute;
+    width: 20%;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+.clima p {
+    color: #2A333C;
 }
